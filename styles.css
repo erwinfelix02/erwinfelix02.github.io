@@ -16,21 +16,24 @@ body {
     padding: 20px;
 }
 
+/* Main Container Centering */
 .container {
-    max-width: 1100px;
+    max-width: 1000px;
     width: 100%;
+    text-align: center;
 }
 
 .page-title {
-    text-align: center;
     margin-bottom: 40px;
     color: #1a252f;
+    font-size: 2.2rem;
 }
 
 /* Card Grid Layout */
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
 }
 
@@ -39,9 +42,11 @@ body {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 25px;
+    padding: 35px 25px;
+    width: 260px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -52,41 +57,13 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.card-header {
-    text-align: center;
-}
-
-.profile-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    object-fit: cover;
-}
-
+/* Centered Name Styling */
 .cv-card h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     color: #2c3e50;
-    margin-bottom: 5px;
-}
-
-.role {
-    font-size: 0.95rem;
-    color: #007bff;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.card-body {
     text-align: center;
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
     margin-bottom: 25px;
-}
-
-.card-footer {
-    text-align: center;
+    word-break: break-word;
 }
 
 /* Hyperlink / Button Style */
@@ -98,6 +75,7 @@ body {
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
+    text-align: center;
     border-radius: 6px;
     transition: background-color 0.2s ease;
 }
