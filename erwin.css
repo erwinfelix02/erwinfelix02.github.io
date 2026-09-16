@@ -1,0 +1,250 @@
+/* CSS Variables for Light Mode (Default) */
+:root {
+    --bg-main: #ffffff;
+    --bg-sidebar: #131d2a;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-sidebar: #ffffff;
+    --text-sidebar-sub: #a0aec0;
+    --accent-teal: #1bb7a5;
+    --accent-blue: #00bcd4;
+    --border-color: #1bb7a5;
+    --item-subtext: #718096;
+    --btn-bg: #f0f4f8;
+    --btn-border: #d0d7de;
+    --btn-color: #131d2a;
+}
+
+/* CSS Variables for Dark Mode Override */
+body.dark-theme {
+    --bg-main: #0a0f18;
+    --bg-sidebar: #060a11;
+    --text-primary: #d1d5db;
+    --text-secondary: #9ca3af;
+    --text-sidebar: #ffffff;
+    --text-sidebar-sub: #9ca3af;
+    --accent-teal: #00d2b8;
+    --accent-blue: #00e5ff;
+    --border-color: #1bb7a5;
+    --item-subtext: #8899a6;
+    --btn-bg: #1e293b;
+    --btn-border: #334155;
+    --btn-color: #f8fafc;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background-color: #2b3544; /* Outer background outside resume paper */
+    display: flex;
+    justify-content: center;
+    padding: 30px 15px;
+    line-height: 1.5;
+}
+
+/* Layout Wrapper */
+.resume-wrapper {
+    display: flex;
+    max-width: 950px;
+    width: 100%;
+    background-color: var(--bg-main);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+/* Left Sidebar Styles */
+.sidebar {
+    width: 35%;
+    background-color: var(--bg-sidebar);
+    color: var(--text-sidebar);
+    padding: 35px 25px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+}
+
+.name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.tagline {
+    font-size: 0.7rem;
+    color: var(--text-sidebar-sub);
+    letter-spacing: 1.5px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.sidebar-block {
+    margin-bottom: 25px;
+}
+
+.sidebar-title {
+    font-size: 0.75rem;
+    color: var(--accent-teal);
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.contact-list, .skill-list {
+    list-style: none;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    color: var(--text-sidebar-sub);
+    word-break: break-all;
+}
+
+.contact-list i {
+    color: var(--accent-teal);
+    width: 20px;
+    font-size: 0.9rem;
+    margin-right: 8px;
+}
+
+.contact-list a {
+    color: var(--text-sidebar-sub);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.contact-list a:hover {
+    color: var(--accent-teal);
+}
+
+.skill-list li {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+    color: var(--text-sidebar-sub);
+    position: relative;
+    padding-left: 14px;
+}
+
+.skill-list li::before {
+    content: "•";
+    color: var(--accent-teal);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Main Content Styles */
+.main-content {
+    width: 65%;
+    padding: 40px 35px;
+    position: relative;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+/* Theme Button */
+.theme-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background-color: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--btn-color);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Sections & Titles */
+.section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    letter-spacing: 1.5px;
+    font-weight: 800;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.section p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.timeline-item, .project-item {
+    margin-bottom: 18px;
+}
+
+.item-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.institution {
+    font-size: 0.8rem;
+    color: var(--item-subtext);
+    margin-top: 2px;
+}
+
+.date {
+    font-size: 0.8rem;
+    color: var(--item-subtext);
+}
+
+.tech-stack {
+    font-size: 0.8rem;
+    color: var(--accent-teal);
+    font-weight: 700;
+    margin: 2px 0 4px 0;
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+    .resume-wrapper {
+        flex-direction: column;
+    }
+    .sidebar, .main-content {
+        width: 100%;
+    }
+    .theme-btn {
+        top: 15px;
+        right: 15px;
+    }
+}
