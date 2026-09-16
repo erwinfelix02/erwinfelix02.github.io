@@ -1,516 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Erwin P. Felix - Resume</title>
-  <style>
-    /* CSS Variables for Light & Dark Themes */
-    :root {
-      --sidebar-bg: #111e33;
-      --sidebar-text: #ffffff;
-      --sidebar-muted: #cbd5e1;
-      --accent-color: #00d2b5;
-      --body-bg: #f8fafc;
-      --main-text: #334155;
-      --heading-text: #0f172a;
-      --section-border: #00d2b5;
-      --item-border: #e2e8f0;
-      --card-bg: #ffffff;
-      --toggle-bg: #ffffff;
-      --toggle-border: #cbd5e1;
-      --icon-color: #334155;
-      --btn-border: #cbd5e1;
-      --btn-hover: #f1f5f9;
-    }
-
-    [data-theme="dark"] {
-      --sidebar-bg: #0c1424;
-      --body-bg: #060b14;
-      --main-text: #94a3b8;
-      --heading-text: #ffffff;
-      --section-border: #00d2b5;
-      --item-border: #1e293b;
-      --card-bg: #0f172a;
-      --toggle-bg: #1e293b;
-      --toggle-border: #334155;
-      --icon-color: #ffffff;
-      --btn-border: #334155;
-      --btn-hover: #1e293b;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: var(--body-bg);
-      color: var(--main-text);
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .resume-container {
-      display: flex;
-      width: 100%;
-      max-width: 950px;
-      background: var(--card-bg);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
-      overflow: hidden;
-      position: relative;
-      transition: background-color 0.3s ease;
-    }
-
-    /* Sidebar Styling */
-    .sidebar {
-      width: 35%;
-      background-color: var(--sidebar-bg);
-      color: var(--sidebar-text);
-      padding: 35px 20px;
-      transition: background-color 0.3s ease;
-    }
-
-    .sidebar h1 {
-      font-size: 1.6rem;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .sidebar .subtitle {
-      font-size: 0.75rem;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--sidebar-muted);
-      margin-bottom: 25px;
-    }
-
-    .sidebar-section {
-      margin-bottom: 25px;
-    }
-
-    .sidebar-section h3 {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--accent-color);
-      margin-bottom: 10px;
-    }
-
-    .sidebar-section ul {
-      list-style-type: none;
-    }
-
-    .sidebar-section ul li {
-      font-size: 0.82rem;
-      margin-bottom: 6px;
-      color: var(--sidebar-muted);
-      position: relative;
-      padding-left: 12px;
-    }
-
-    .sidebar-section ul li::before {
-      content: "•";
-      color: var(--accent-color);
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-    }
-
-    .contact-info p {
-      font-size: 0.8rem;
-      margin-bottom: 8px;
-      color: var(--sidebar-muted);
-      word-break: break-word;
-    }
-
-    .contact-info a {
-      color: var(--sidebar-muted);
-      text-decoration: none;
-    }
-
-    /* Main Content Styling */
-    .main-content {
-      width: 65%;
-      padding: 35px 30px;
-      position: relative;
-    }
-
-    /* Fixed Dark Mode Toggle Button */
-    .theme-toggle {
-      position: absolute;
-      top: 25px;
-      right: 25px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--toggle-border);
-      border-radius: 8px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      outline: none;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .theme-toggle:hover {
-      transform: scale(1.05);
-    }
-
-    .theme-toggle svg {
-      width: 20px;
-      height: 20px;
-      fill: none;
-      stroke: var(--icon-color);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: stroke 0.3s ease;
-    }
-
-    .sun-icon {
-      display: none;
-    }
-
-    .moon-icon {
-      display: block;
-    }
-
-    [data-theme="dark"] .sun-icon {
-      display: block;
-    }
-
-    [data-theme="dark"] .moon-icon {
-      display: none;
-    }
-
-    .content-section {
-      margin-bottom: 25px;
-    }
-
-    .content-section h2 {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--heading-text);
-      border-bottom: 1.5px solid var(--section-border);
-      padding-bottom: 5px;
-      margin-bottom: 12px;
-      transition: color 0.3s ease;
-    }
-
-    .content-section p {
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
-
-    /* Contributor Card & Action Buttons */
-    .contributor-card {
-      background: transparent;
-      border: 1px solid var(--item-border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-    }
-
-    .contributor-name {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--heading-text);
-      margin-bottom: 8px;
-    }
-
-    .contributor-buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .btn-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: all 0.2s ease;
-    }
-
-    /* Left Button */
-    .btn-left {
-      background-color: var(--accent-color);
-      color: #0c1424;
-      border: 1px solid var(--accent-color);
-    }
-
-    .btn-left:hover {
-      opacity: 0.9;
-    }
-
-    /* Right Button */
-    .btn-right {
-      background-color: transparent;
-      color: var(--main-text);
-      border: 1px solid var(--btn-border);
-    }
-
-    .btn-right:hover {
-      background-color: var(--btn-hover);
-    }
-
-    .item {
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--item-border);
-    }
-
-    .item:last-child {
-      border-bottom: none;
-    }
-
-    .item h3 {
-      font-size: 0.95rem;
-      color: var(--heading-text);
-      text-transform: uppercase;
-      font-weight: 700;
-      transition: color 0.3s ease;
-    }
-
-    .item .meta {
-      font-size: 0.8rem;
-      color: #64748b;
-      margin: 2px 0 6px 0;
-    }
-
-    .item .tags {
-      color: var(--accent-color);
-      font-weight: 600;
-      font-size: 0.82rem;
-      margin-bottom: 4px;
-    }
-
-    @media (max-width: 768px) {
-      .resume-container {
-        flex-direction: column;
-      }
-      .sidebar, .main-content {
-        width: 100%;
-      }
-      .contributor-buttons {
-        flex-direction: column;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erwin P. Felix - Resume</title>
+    <!-- Link to external CSS stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome Icons for sidebar contacts & mode toggle -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="dark-theme"> <!-- Default set to dark theme; remove class for light mode -->
 
-  <div class="resume-container">
-    
-    <!-- LEFT SIDEBAR -->
-    <aside class="sidebar">
-      <h1>Erwin P. Felix</h1>
-      <p class="subtitle">Information Technology Student</p>
-
-      <div class="sidebar-section contact-info">
-        <h3>Contact Information</h3>
-        <p>📞 +63 962 078 9785</p>
-        <p>✉️ erwinfelix528@gmail.com</p>
-        <p>🔗 linkedin.com/in/erwinfelix</p>
-      </div>
-
-      <div class="sidebar-section contact-info">
-        <h3>Portfolio</h3>
-        <p>🌐 deverwinfelix.me</p>
-        <p>💻 github.com/erwinfelix07</p>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Technical Skills</h3>
-        <ul>
-          <li>General Computer Skill</li>
-          <li>Spreadsheet Proficiency</li>
-          <li>Basic UI/UX Design</li>
-          <li>Basic Networking</li>
-          <li>Database Management</li>
-          <li>Web Development</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Programming Languages, Tools & Frameworks</h3>
-        <ul>
-          <li>Python</li>
-          <li>Java</li>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-          <li>Kotlin</li>
-          <li>PHP</li>
-          <li>Figma</li>
-          <li>TypeScript</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-section">
-        <h3>Core Work Skills</h3>
-        <ul>
-          <li>Problem Solving</li>
-          <li>Computational Thinking</li>
-          <li>Work Ethics</li>
-          <li>Teamwork & Collaboration</li>
-          <li>Flexibility & Agility</li>
-          <li>Trainability</li>
-        </ul>
-      </div>
-    </aside>
-
-    <!-- RIGHT MAIN CONTENT -->
-    <main class="main-content">
-      
-      <!-- Fixed Dark Mode Toggle Button -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Toggle Light/Dark Mode">
-        <!-- Moon Icon (Light Mode) -->
-        <svg class="moon-icon" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-        <!-- Sun Icon (Dark Mode) -->
-        <svg class="sun-icon" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-      </button>
-
-      <section class="content-section">
-        <h2>Profile Summary</h2>
-        <p>A hardworking Information Technology student with strong technical and programming skills. Able to multitask, work under pressure, and collaborate effectively in a team.</p>
-      </section>
-
-      <section class="content-section">
-        <h2>Education and Certifications</h2>
-        <div class="item">
-          <h3>Technokids IT Cup: Robotics</h3>
-          <p class="meta">De La Salle University — 2019</p>
-        </div>
-        <div class="item">
-          <h3>Bachelor of Science in Information Technology</h3>
-          <p class="meta">Phinma — University of Pangasinan — 2023 – Present</p>
-        </div>
-      </section>
-
-      <section class="content-section">
-        <h2>Work Experience</h2>
-        <div class="item">
-          <h3>Finance Bookstore — Student Assistant</h3>
-          <p class="meta">Phinma — University of Pangasinan · July 2023 – Present</p>
-        </div>
-      </section>
-
-      <section class="content-section">
-        <h2>Projects</h2>
+    <div class="resume-wrapper">
         
-        <div class="item">
-          <h3>IBudget — A Budget Tracker Application</h3>
-          <p class="tags">Python | Tkinter | 2023</p>
-          <p>A budget tracker application to help individuals manage and monitor expenses against a predefined budget.</p>
-        </div>
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <!-- Replace 'profile.jpg' with your actual image file path -->
+                <img src="https://via.placeholder.com/130" alt="Erwin P. Felix" class="profile-img">
+                <h1 class="name">Erwin P. Felix</h1>
+                <p class="tagline">INFORMATION TECHNOLOGY STUDENT</p>
+            </div>
 
-        <div class="item">
-          <h3>Pet Adoption — A Pet Adoption Portal</h3>
-          <p class="tags">HTML | CSS | JavaScript | 2024</p>
-          <p>A website that lists adoptable pets from local shelters and rescue organizations.</p>
-        </div>
+            <!-- CONTACT INFORMATION -->
+            <div class="sidebar-block">
+                <h2 class="sidebar-title">CONTACT INFORMATION</h2>
+                <ul class="contact-list">
+                    <li><i class="fas fa-phone"></i> <span>+63 962 078 9785</span></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:erwinfelix528@gmail.com">erwinfelix528@gmail.com</a></li>
+                    <li><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/erwinfelix" target="_blank">linkedin.com/in/erwinfelix</a></li>
+                </ul>
+            </div>
 
-        <div class="item">
-          <h3>Periodic Table — A Quiz Game Application</h3>
-          <p class="tags">Java | 2024</p>
-          <p>A quiz game application that helps students memorize the periodic table.</p>
-        </div>
+            <!-- PORTFOLIO -->
+            <div class="sidebar-block">
+                <h2 class="sidebar-title">PORTFOLIO</h2>
+                <ul class="contact-list">
+                    <li><i class="fas fa-globe"></i> <a href="https://deverwinfelix.me" target="_blank">deverwinfelix.me</a></li>
+                    <li><i class="fab fa-github"></i> <a href="https://github.com/erwinfelix07" target="_blank">github.com/erwinfelix07</a></li>
+                </ul>
+            </div>
 
-        <div class="item">
-          <h3>Geography Snap — A Quiz Game Application</h3>
-          <p class="tags">Kotlin | PHP | 2024</p>
-          <p>A quiz game application focused on learning and memorizing world locations.</p>
-        </div>
+            <!-- TECHNICAL SKILLS -->
+            <div class="sidebar-block">
+                <h2 class="sidebar-title">TECHNICAL SKILLS</h2>
+                <ul class="skill-list">
+                    <li>General Computer Skill</li>
+                    <li>Spreadsheet Proficiency</li>
+                    <li>Basic UI/UX Design</li>
+                    <li>Basic Networking</li>
+                    <li>Database Management</li>
+                    <li>Web Development</li>
+                </ul>
+            </div>
 
-        <div class="item">
-          <h3>Autolink — A Mobile Service Application</h3>
-          <p class="tags">Kotlin | PHP | 2025</p>
-          <p>A mobile app for vehicle maintenance scheduling and fuel tracking.</p>
-        </div>
+            <!-- PROGRAMMING LANGUAGES & TOOLS -->
+            <div class="sidebar-block">
+                <h2 class="sidebar-title">PROGRAMMING LANGUAGES, TOOLS & FRAMEWORKS</h2>
+                <ul class="skill-list">
+                    <li>Python</li>
+                    <li>Java</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Kotlin</li>
+                    <li>PHP</li>
+                    <li>Figma</li>
+                    <li>TypeScript</li>
+                </ul>
+            </div>
 
-        <div class="item">
-          <h3>Smart Inventory Alert System — Real-Time Stock Monitoring</h3>
-          <p class="tags">JavaScript | HTML | CSS | 2025</p>
-          <p>A web-based platform for stock monitoring, inventory optimization, and smarter decisions.</p>
-        </div>
+            <!-- CORE WORK SKILLS -->
+            <div class="sidebar-block">
+                <h2 class="sidebar-title">CORE WORK SKILLS</h2>
+                <ul class="skill-list">
+                    <li>Problem Solving</li>
+                    <li>Computational Thinking</li>
+                    <li>Work Ethics</li>
+                    <li>Teamwork & Collaboration</li>
+                    <li>Flexibility & Agility</li>
+                    <li>Trainability</li>
+                </ul>
+            </div>
+        </aside>
 
-      </section>
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            
+            <!-- Dark/Light Theme Toggle Button -->
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                <i class="fas fa-sun" id="theme-icon"></i>
+            </button>
 
-      <!-- PROJECT CONTRIBUTORS & COLLABORATORS AT THE BOTTOM -->
-      <section class="content-section">
-        <h2>Project Contributors & Collaborators</h2>
-        
-        <!-- Contributor: Devera -->
-        <div class="contributor-card">
-          <div class="contributor-name">Devera</div>
-          <div class="contributor-buttons">
-            <!-- Hyperlink points directly to the 'devera' file -->
-            <a href="./devera.html" target="_blank" class="btn-action btn-left">
-              🌐 View CV
-            </a>
-            <a href="https://github.com/devera" target="_blank" class="btn-action btn-right">
-              💻 GitHub Profile
-            </a>
-          </div>
-        </div>
+            <!-- PROFILE SUMMARY -->
+            <section class="section">
+                <h2 class="section-title">PROFILE SUMMARY</h2>
+                <p>A hardworking Information Technology student with strong technical and programming skills. Able to multitask, work under pressure, and collaborate effectively in a team.</p>
+            </section>
 
-      </section>
+            <!-- EDUCATION AND CERTIFICATIONS -->
+            <section class="section">
+                <h2 class="section-title">EDUCATION AND CERTIFICATIONS</h2>
+                
+                <div class="timeline-item">
+                    <h3 class="item-title">TECHNOKIDS IT CUP: ROBOTICS</h3>
+                    <p class="institution">De La Salle University</p>
+                    <p class="date">2019</p>
+                </div>
 
-    </main>
-  </div>
+                <div class="timeline-item">
+                    <h3 class="item-title">BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</h3>
+                    <p class="institution">Phinma — University of Pangasinan</p>
+                    <p class="date">2023 — Present</p>
+                </div>
+            </section>
 
-  <script>
-    const themeToggleBtn = document.getElementById('themeToggle');
-    
-    // Check saved theme from localStorage or system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            <!-- WORK EXPERIENCE -->
+            <section class="section">
+                <h2 class="section-title">WORK EXPERIENCE</h2>
+                
+                <div class="timeline-item">
+                    <h3 class="item-title">FINANCE BOOKSTORE — STUDENT ASSISTANT</h3>
+                    <p class="institution">Phinma — University of Pangasinan · July 2023 — Present</p>
+                </div>
+            </section>
 
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
+            <!-- PROJECTS -->
+            <section class="section">
+                <h2 class="section-title">PROJECTS</h2>
 
-    // Toggle theme handler
-    themeToggleBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      
-      if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-  </script>
+                <div class="project-item">
+                    <h3 class="item-title">IBUDGET — A BUDGET TRACKER APPLICATION</h3>
+                    <p class="tech-stack">Python | Tkinter | 2023</p>
+                    <p>A budget tracker application to help individuals manage and monitor expenses against a predefined budget.</p>
+                </div>
 
+                <div class="project-item">
+                    <h3 class="item-title">PET ADOPTION — A PET ADOPTION PORTAL</h3>
+                    <p class="tech-stack">HTML | CSS | JavaScript | 2024</p>
+                    <p>A website that lists adoptable pets from local shelters and rescue organizations.</p>
+                </div>
+
+                <div class="project-item">
+                    <h3 class="item-title">PERIODIC TABLE — A QUIZ GAME APPLICATION</h3>
+                    <p class="tech-stack">Java | 2024</p>
+                    <p>A quiz game application that helps students memorize the periodic table.</p>
+                </div>
+
+                <div class="project-item">
+                    <h3 class="item-title">GEOGRAPHY SNAP — A QUIZ GAME APPLICATION</h3>
+                    <p class="tech-stack">Kotlin | PHP | 2024</p>
+                    <p>A quiz game application focused on learning and memorizing world locations.</p>
+                </div>
+
+                <div class="project-item">
+                    <h3 class="item-title">AUTOLINK — A MOBILE SERVICE APPLICATION</h3>
+                    <p class="tech-stack">Kotlin | PHP | 2025</p>
+                    <p>A mobile app for vehicle maintenance scheduling and fuel tracking.</p>
+                </div>
+
+                <div class="project-item">
+                    <h3 class="item-title">SMART INVENTORY ALERT SYSTEM — REAL-TIME STOCK MONITORING</h3>
+                    <p class="tech-stack">JavaScript | HTML | CSS | 2025</p>
+                    <p>A web-based platform for stock monitoring, inventory optimization, and smarter decisions.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript to toggle Light/Dark Mode -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            
+            // Toggle icon between sun and moon
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        });
+    </script>
 </body>
 </html>
