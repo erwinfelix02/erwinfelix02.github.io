@@ -17,19 +17,22 @@
       --section-border: #00d2b5;
       --item-border: #e2e8f0;
       --card-bg: #ffffff;
-      --toggle-bg: #f1f5f9;
-      --toggle-color: #334155;
+      --toggle-bg: #ffffff;
+      --toggle-border: #cbd5e1;
+      --icon-color: #334155;
     }
 
     [data-theme="dark"] {
-      --body-bg: #0b1120;
+      --sidebar-bg: #0c1424;
+      --body-bg: #060b14;
       --main-text: #94a3b8;
       --heading-text: #ffffff;
       --section-border: #00d2b5;
       --item-border: #1e293b;
-      --card-bg: #0b1120;
+      --card-bg: #0f172a;
       --toggle-bg: #1e293b;
-      --toggle-color: #ffffff;
+      --toggle-border: #334155;
+      --icon-color: #ffffff;
     }
 
     * {
@@ -57,6 +60,7 @@
       border-radius: 8px;
       overflow: hidden;
       position: relative;
+      transition: background-color 0.3s ease;
     }
 
     /* Sidebar Styling */
@@ -64,24 +68,12 @@
       width: 35%;
       background-color: var(--sidebar-bg);
       color: var(--sidebar-text);
-      padding: 30px 20px;
-    }
-
-    .profile-img-container {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .profile-img {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ffffff;
+      padding: 35px 20px;
+      transition: background-color 0.3s ease;
     }
 
     .sidebar h1 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       text-align: center;
       font-weight: 700;
     }
@@ -146,23 +138,54 @@
       position: relative;
     }
 
-    /* Dark Mode Toggle Button */
+    /* Fixed Dark Mode Toggle Button */
     .theme-toggle {
       position: absolute;
       top: 25px;
       right: 25px;
       background: var(--toggle-bg);
-      color: var(--toggle-color);
-      border: 1px solid var(--item-border);
+      border: 1px solid var(--toggle-border);
       border-radius: 8px;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
       transition: all 0.3s ease;
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: var(--icon-color);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s ease;
+    }
+
+    .sun-icon {
+      display: none;
+    }
+
+    .moon-icon {
+      display: block;
+    }
+
+    [data-theme="dark"] .sun-icon {
+      display: block;
+    }
+
+    [data-theme="dark"] .moon-icon {
+      display: none;
     }
 
     .content-section {
@@ -177,6 +200,7 @@
       border-bottom: 1.5px solid var(--section-border);
       padding-bottom: 5px;
       margin-bottom: 12px;
+      transition: color 0.3s ease;
     }
 
     .content-section p {
@@ -199,6 +223,7 @@
       color: var(--heading-text);
       text-transform: uppercase;
       font-weight: 700;
+      transition: color 0.3s ease;
     }
 
     .item .meta {
@@ -230,11 +255,6 @@
     
     <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
-      <div class="profile-img-container">
-        <!-- Replace src with your photo URL -->
-        <img src="https://via.placeholder.com/110" alt="Erwin P. Felix" class="profile-img" />
-      </div>
-      
       <h1>Erwin P. Felix</h1>
       <p class="subtitle">Information Technology Student</p>
 
@@ -294,8 +314,25 @@
     <!-- RIGHT MAIN CONTENT -->
     <main class="main-content">
       
-      <!-- Theme Switcher Button -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌙</button>
+      <!-- Improved SVG Toggle Button -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme" title="Toggle Light/Dark Mode">
+        <!-- Moon Icon (Light Mode) -->
+        <svg class="moon-icon" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <!-- Sun Icon (Dark Mode) -->
+        <svg class="sun-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
 
       <section class="content-section">
         <h2>Profile Summary</h2>
@@ -368,16 +405,25 @@
 
   <script>
     const themeToggleBtn = document.getElementById('themeToggle');
+    
+    // Check saved theme from localStorage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    // Toggle theme handler
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       
-      if (currentTheme === 'dark') {
+      if (isDark) {
         document.documentElement.removeAttribute('data-theme');
-        themeToggleBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggleBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
       }
     });
   </script>
